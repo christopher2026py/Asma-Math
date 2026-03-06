@@ -17,24 +17,23 @@ success_sound = "https://www.soundjay.com/buttons/sounds/button-3.mp3"
 if not st.session_state.started:
 
     st.write("""
-    Aujourd'hui, nous allons apprendre **les additions et soustractions simples** ainsi que **les formes géométriques**.
-    
-    🔹 Addition : ajouter des nombres ensemble (ex : 2 + 3 = 5)  
-    🔹 Soustraction : enlever des nombres (ex : 5 - 2 = 3)  
-    🔹 Formes : triangle = 3 côtés, carré = 4 côtés
+    Aujourd'hui, nous allons apprendre **les nombres et les formes**.
+
+    🔹 Compter les objets  
+    🔹 Reconnaître les formes  
+    🔹 Faire des additions très simples
     """)
 
     st.write("🎬 Regarde la vidéo pour comprendre la leçon :")
 
-    # vidéo
-    st.video("https://www.youtube.com/watch?v=8NQkY2K0c8Y")
+    # vidéo simple pour enfants
+    st.video("https://www.youtube.com/watch?v=DR-cfDsHCGA")
 
-    # bouton
     if st.button("Commencer les exercices"):
         st.session_state.started = True
 
 
-# --- Exercices simples ---
+# --- Exercices ---
 if st.session_state.started:
 
     def next_step(correct):
@@ -46,15 +45,15 @@ if st.session_state.started:
 
     # Question 1
     if st.session_state.step == 1:
-        st.write("Question 1 : 2 + 3 = ?")
+        st.write("Question 1 : Combien font 1 + 1 ?")
         reponse = st.text_input("Écris ta réponse", key="q1")
         if st.button("Valider", key="b1"):
-            next_step(reponse.strip() == "5")
+            next_step(reponse.strip() == "2")
 
 
     # Question 2
     elif st.session_state.step == 2:
-        st.write("Question 2 : 5 - 2 = ?")
+        st.write("Question 2 : Combien font 2 + 1 ?")
         reponse = st.text_input("Écris ta réponse", key="q2")
         if st.button("Valider", key="b2"):
             next_step(reponse.strip() == "3")
@@ -76,7 +75,7 @@ if st.session_state.started:
             next_step(reponse.strip() == "4")
 
 
-    # Fin du jeu
+    # Fin
     elif st.session_state.step == 5:
 
         st.subheader("🎉 Exercice terminé !")
@@ -84,7 +83,6 @@ if st.session_state.started:
         score = st.session_state.score
         st.write(f"Ton score est : {score} /4")
 
-        # étoiles
         stars = "⭐" * score
         st.write("Tes étoiles :", stars)
 
