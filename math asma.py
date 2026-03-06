@@ -1,6 +1,6 @@
 import streamlit as st
 
-# --- Page d'accueil avec leçon ---
+# --- Page d'accueil ---
 st.title("📚 Bienvenue dans les leçons mathématiques d'Asma !")
 
 if "started" not in st.session_state:
@@ -10,26 +10,28 @@ if "step" not in st.session_state:
 if "score" not in st.session_state:
     st.session_state.score = 0
 
+
 # fonction son invisible
 def play_success():
     st.markdown(
         """
         <audio autoplay>
-        <source src="https://www.soundjay.com/buttons/sounds/button-3.mp3" type="audio/mp3">
+        <source src="https://www.soundjay.com/buttons/sounds/button-09.mp3">
         </audio>
         """,
         unsafe_allow_html=True
     )
 
-# --- Leçon ---
+
+# --- LEÇON ---
 if not st.session_state.started:
 
     st.write("""
-    Aujourd'hui nous allons apprendre :
+Aujourd'hui nous allons apprendre :
 
-    🔹 les petits calculs  
-    🔹 reconnaître les formes
-    """)
+🔹 les petits calculs  
+🔹 reconnaître les formes
+""")
 
     st.write("🎬 Petite vidéo pour comprendre la leçon")
 
@@ -37,26 +39,28 @@ if not st.session_state.started:
 
     if st.button("Commencer les exercices"):
         st.session_state.started = True
+        st.rerun()
 
 
-# --- Exercices ---
+# --- EXERCICES ---
 if st.session_state.started:
 
     def next_step(correct):
 
         if correct:
+            st.session_state.score += 1
             st.success("✅ Bravo ! Bonne réponse ! 🎉")
             play_success()
-            st.session_state.score += 1
-
         else:
-            st.error("❌ Oups ! Ce n'est pas la bonne réponse.")
+            st.error("❌ Ce n'est pas la bonne réponse.")
 
         st.session_state.step += 1
+        st.rerun()
 
 
     # Question 1
     if st.session_state.step == 1:
+
         st.write("Question 1 : Combien font 1 + 1 ?")
 
         r = st.text_input("Ta réponse", key="q1")
@@ -67,6 +71,7 @@ if st.session_state.started:
 
     # Question 2
     elif st.session_state.step == 2:
+
         st.write("Question 2 : Combien font 2 + 1 ?")
 
         r = st.text_input("Ta réponse", key="q2")
@@ -77,6 +82,7 @@ if st.session_state.started:
 
     # Question 3
     elif st.session_state.step == 3:
+
         st.write("Question 3 : Combien de côtés a un triangle ?")
 
         r = st.text_input("Ta réponse", key="q3")
@@ -87,6 +93,7 @@ if st.session_state.started:
 
     # Question 4
     elif st.session_state.step == 4:
+
         st.write("Question 4 : Combien de côtés a un carré ?")
 
         r = st.text_input("Ta réponse", key="q4")
@@ -95,12 +102,13 @@ if st.session_state.started:
             next_step(r.strip() == "4")
 
 
-    # Fin
+    # FIN
     elif st.session_state.step == 5:
 
         st.subheader("🎉 Exercice terminé !")
 
         score = st.session_state.score
+
         st.write(f"Ton score est : {score} /4")
 
         stars = "⭐" * score
@@ -120,3 +128,4 @@ if st.session_state.started:
             st.session_state.started = False
             st.session_state.step = 1
             st.session_state.score = 0
+            st.rerun()
