@@ -1,8 +1,9 @@
 import streamlit as st
 
-st.title("🍕 Pizzeria des Fractions !")
+st.title("📚 Bienvenue dans les leçons mathématiques d'Asma !")
+st.write("Réponds aux questions pour t'amuser et apprendre !")
 
-# Initialiser le score et l'étape avec st.session_state
+# Initialiser le score et l'étape
 if "step" not in st.session_state:
     st.session_state.step = 1
 if "score" not in st.session_state:
@@ -14,50 +15,40 @@ def next_step(correct):
         st.session_state.score += 1
     st.session_state.step += 1
 
-# --- Question par question ---
+# --- Questions CE1 ---
 if st.session_state.step == 1:
-    st.write("Niveau 1 : Comprendre les fractions")
-    reponse = st.text_input("Tu manges 2 parts sur 6 parts de pizza. Quelle est la fraction ?", key="q1")
+    st.write("Question 1 : 2 + 3 = ?")
+    reponse = st.text_input("Écris ta réponse", key="q1")
     if st.button("Valider", key="b1"):
-        next_step(reponse.strip() == "2/6")
+        next_step(reponse.strip() == "5")
 
 elif st.session_state.step == 2:
-    st.write("Niveau 2 : Numérateur et dénominateur")
-    reponse1 = st.text_input("Quel est le numérateur de 3/5 ?", key="q2")
-    reponse2 = st.text_input("Quel est le dénominateur de 3/5 ?", key="q3")
+    st.write("Question 2 : 5 - 2 = ?")
+    reponse = st.text_input("Écris ta réponse", key="q2")
     if st.button("Valider", key="b2"):
-        next_step(reponse1.strip() == "3" and reponse2.strip() == "5")
+        next_step(reponse.strip() == "3")
 
 elif st.session_state.step == 3:
-    st.write("Niveau 3 : Fractions équivalentes")
-    reponse = st.text_input("Complète : 1/3 = ?/6", key="q4")
+    st.write("Question 3 : Combien de côtés a un triangle ?")
+    reponse = st.text_input("Écris ta réponse", key="q3")
     if st.button("Valider", key="b3"):
-        next_step(reponse.strip() == "2")
+        next_step(reponse.strip() == "3")
 
 elif st.session_state.step == 4:
-    st.write("Niveau 4 : Mission chocolat 🍫")
-    reponse1 = st.text_input("Tu manges 3 morceaux sur 8, quelle fraction as-tu mangée ?", key="q5")
-    reponse2 = st.text_input("Combien reste-t-il ?", key="q6")
+    st.write("Question 4 : Quelle couleur obtient-on en mélangeant bleu et jaune ?")
+    reponse = st.text_input("Écris ta réponse", key="q4")
     if st.button("Valider", key="b4"):
-        next_step(reponse1.strip() == "3/8" and reponse2.strip() == "5/8")
+        next_step(reponse.strip().lower() == "vert")
 
 elif st.session_state.step == 5:
-    st.write("Mini jeu : Vrai ou Faux")
-    reponse1 = st.radio("2/4 = 1/2", ("vrai", "faux"), key="q7")
-    reponse2 = st.radio("3/5 = 5/3", ("vrai", "faux"), key="q8")
-    if st.button("Valider", key="b5"):
-        next_step(reponse1 == "vrai" and reponse2 == "faux")
-
-elif st.session_state.step == 6:
     st.subheader("🎉 Jeu terminé !")
-    st.write(f"Ton score est : {st.session_state.score} /7")
-    if st.session_state.score == 7:
-        st.balloons()
-        st.success("🏆 Excellent ! Tu es un champion des fractions !")
-    elif st.session_state.score >= 4:
-        st.info("👍 Bon travail ! Continue à pratiquer.")
+    st.write(f"Ton score est : {st.session_state.score} /4")
+    if st.session_state.score == 4:
+        st.success("🏆 Parfait ! Tu es un champion !")
+    elif st.session_state.score >= 2:
+        st.info("👍 Bien joué ! Continue à pratiquer.")
     else:
-        st.warning("📚 Continue à t'entraîner, tu vas progresser !")
+        st.warning("📚 Continue à t'entraîner !")
     if st.button("Rejouer"):
         st.session_state.step = 1
         st.session_state.score = 0
